@@ -35,7 +35,7 @@ public class ProductSpecification implements Specification<Product> {
             case LT:
                 return cBuilder.lessThan(root.get(criteria.getKey()), criteria.getValue().toString());
             case LIKE:
-                return cBuilder.like(root.get(criteria.getKey()), criteria.getValue().toString());
+                return cBuilder.like(root.get(criteria.getKey()), '%' + criteria.getValue().toString() + '%');
             default:
                 return null;
         }

@@ -29,21 +29,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-//    @GetMapping(value = "/product/{search}/{predicate}")
-//    public List<Product> search(@PathVariable(value = "search") String search, @PathVariable(value = "predicate") PredicateEnum predicate) {
-//        ProductSpecificationBuilder specificationBuilder = new ProductSpecificationBuilder();
-//        Pattern pattern = Pattern.compile("(\\w+?)([:<%>])(\\w+?),");
-//        Matcher matcher = pattern.matcher(search + ",");
-//        while (matcher.find()) {
-//            if (predicate.equals(PredicateEnum.OR)) {
-//                specificationBuilder.with(true, matcher.group(1), matcher.group(2), matcher.group(3));
-//            } else {
-//                specificationBuilder.with(matcher.group(1), matcher.group(2), matcher.group(3));
-//            }
-//        }
-//        return productService.getResultQuery(specificationBuilder);
-//    }
-
     @GetMapping(value = "/product/{search}/{predicate}")
     public List<Product> search(@PathVariable(value = "search") String search, @PathVariable(value = "predicate") PredicateEnum predicate) {
         ProductSpecificationBuilder specificationBuilder = new ProductSpecificationBuilder();
@@ -56,7 +41,6 @@ public class ProductController {
                 specificationBuilder.with(matcher.group(1), matcher.group(2), matcher.group(3));
             }
         }
-        Specification<Product> spec = specificationBuilder.build();
-        return productRepository.findAll(spec);
+        return productService.getResultQuery(specificationBuilder);
     }
 }
